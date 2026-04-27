@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Análise Financeira 90 Dias | Âncora Consultoria</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --laranja: #F25C05;
+      --laranja-escuro: #C44A03;
+      --verde: #1A5C2A;
+      --verde-claro: #2E8B4A;
+      --amarelo: #F0A500;
+      --branco: #FFFFFF;
+      --cinza-claro: #F7F7F7;
+      --hex-opacity: rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: var(--laranja);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Hexagonal pattern overlay */
+    .hex-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92' viewBox='0 0 80 92'%3E%3Cpolygon points='40,2 78,22 78,70 40,90 2,70 2,22' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 80px 92px;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 540px;
+      position: relative;
+      z-index: 2;
+      border-radius: 0 0 60% 60% / 0 0 40% 40%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 420px;
+    }
+
+    /* Blob decorativo no canto */
+    .blob-tl {
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 160px; height: 160px;
+      background: var(--cinza-claro);
+      border-radius: 50%;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 36px 28px 60px;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 9vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    }
+
+    .hero-content p.subtitle {
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      font-weight: 700;
+      line-height: 1.55;
+      opacity: 0.96;
+      margin-bottom: 28px;
+    }
+
+    .badge-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 32px;
+      backdrop-filter: blur(4px);
+    }
+
+    .badge-social .check-icon {
+      width: 28px; height: 28px;
+      background: var(--verde-claro);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--verde);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      padding: 18px 38px;
+      border-radius: 60px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-cta:hover {
+      background: var(--verde-claro);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    .btn-cta .arrow-circle {
+      width: 36px; height: 36px;
+      background: var(--amarelo);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--verde);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-cta:hover .arrow-circle {
+      transform: translateX(4px);
+    }
+
+    .vagas-tag {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      opacity: 0.8;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SECTION: DORES ── */
+    .section-dores {
+      background: var(--cinza-claro);
+      padding: 64px 20px;
+    }
+
+    .section-dores h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      color: var(--laranja-escuro);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .section-dores .lead-text {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #555;
+      font-weight: 600;
+      margin-bottom: 44px;
+    }
+
+    .dor-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      border-left: 6px solid var(--laranja);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s;
+    }
+
+    .dor-card:hover { transform: translateX(6px); }
+
+    .dor-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .dor-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #222;
+      margin-bottom: 4px;
+    }
+
+    .dor-card p {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ── SECTION: SOLUÇÃO ── */
+    .section-solucao {
+      background: var(--verde);
+      padding: 64px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-solucao::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92' viewBox='0 0 80 92'%3E%3Cpolygon points='40,2 78,22 78,70 40,90 2,70 2,22' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 80px 92px;
+      pointer-events: none;
+    }
+
+    .section-solucao h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      color: #fff;
+      text-align: center;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .section-solucao .lead-text {
+      text-align: center;
+      color: rgba(255,255,255,0.82);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 44px;
+      position: relative;
+    }
+
+    .entrega-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 24px 20px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+      backdrop-filter: blur(6px);
+      transition: transform 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .entrega-card:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-4px);
+    }
+
+    .entrega-card .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--amarelo);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .entrega-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .entrega-card p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    /* ── SECTION: DEPOIMENTOS ── */
+    .section-dep {
+      padding: 64px 20px;
+      background: #fff;
+    }
+
+    .section-dep h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      color: var(--laranja-escuro);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .dep-card {
+      background: var(--cinza-claro);
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      position: relative;
+      border-top: 4px solid var(--laranja);
+    }
+
+    .dep-stars {
+      color: var(--amarelo);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .dep-text {
+      font-size: 0.95rem;
+      color: #444;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .dep-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dep-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--laranja);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .dep-author strong { font-size: 0.9rem; font-weight: 800; color: #222; display: block; }
+    .dep-author span { font-size: 0.78rem; color: #888; font-weight: 600; }
+
+    /* ── CTA FINAL ── */
+    .section-cta-final {
+      background: var(--laranja);
+      padding: 72px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92' viewBox='0 0 80 92'%3E%3Cpolygon points='40,2 78,22 78,70 40,90 2,70 2,22' fill='none' stroke='rgba(0,0,0,0.07)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 80px 92px;
+      pointer-events: none;
+    }
+
+    .section-cta-final h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 9vw, 3.8rem);
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      position: relative;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    }
+
+    .section-cta-final p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    /* Urgency bar */
+    .urgency-bar {
+      background: #fff;
+      color: var(--laranja-escuro);
+      font-weight: 900;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 10px 20px;
+      letter-spacing: 0.5px;
+      animation: pulse-bar 2s infinite;
+    }
+
+    @keyframes pulse-bar {
+      0%, 100% { background: #fff; }
+      50% { background: #fff5ee; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      color: #999;
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    footer strong { color: var(--laranja); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Pulse no botão CTA */
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+      50% { box-shadow: 0 8px 50px rgba(26,92,42,0.5); }
+    }
+
+    .btn-cta.pulse { animation: cta-pulse 2.4s infinite; }
+
+    /* Contador regressivo */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .countdown-block {
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      padding: 12px 18px;
+      text-align: center;
+      min-width: 72px;
+      backdrop-filter: blur(6px);
+    }
+
+    .countdown-block .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--amarelo);
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-block .label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #fff;
+      opacity: 0.75;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+      .hero-photo img { max-height: 340px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- URGÊNCIA TOPO -->
+<div class="urgency-bar">
+  ⚡ VAGAS LIMITADAS — Garanta sua análise agora!
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="blob-tl"></div>
+  <div class="hex-pattern"></div>
+
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=600&q=80"
+         alt="Pessoa analisando finanças no celular"/>
+  </div>
+
+  <div class="hero-content fade-up visible" style="max-width:600px;">
+    <h1>Você não sabe pra onde vai o seu dinheiro?</h1>
+    <p class="subtitle">
+      Analiso seus últimos 90 dias e te mostro onde seu dinheiro está indo — e onde economizar.
+    </p>
+
+    <div class="badge-social mb-4">
+      <span class="check-icon">✓</span>
+      + de 100 pessoas já organizaram suas finanças
+    </div>
+
+    <a href="https://go.hotmart.com/T105570969Y?dp=1" target="_blank" rel="noopener"
+       class="btn-cta pulse" id="btn-hero">
+      <span>
+        Clique e Garanta sua Análise
+        <span class="vagas-tag">(Vagas Limitadas)</span>
+      </span>
+      <span class="arrow-circle">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ DORES ============ -->
+<section class="section-dores">
+  <div class="container" style="max-width:640px;">
+    <h2 class="fade-up">Você se identifica?</h2>
+    <p class="lead-text fade-up">Se você respondeu SIM para algum desses, essa análise é para você:</p>
+
+    <div class="dor-card fade-up">
+      <span class="dor-icon">😰</span>
+      <div>
+        <h4>Dinheiro some sem explicação</h4>
+        <p>Você recebe, paga as contas e — cadê o resto? Não sabe dizer onde foi.</p>
+      </div>
+    </div>
+
+    <div class="dor-card fade-up">
+      <span class="dor-icon">💳</span>
+      <div>
+        <h4>Cartão de crédito sempre no limite</h4>
+        <p>Tenta controlar, mas sempre aparece alguma coisa que desestabiliza tudo.</p>
+      </div>
+    </div>
+
+    <div class="dor-card fade-up">
+      <span class="dor-icon">😓</span>
+      <div>
+        <h4>Mês que vem promete ser diferente</h4>
+        <p>Plano perfeito no início do mês, mas até o dia 15 já desandou.</p>
+      </div>
+    </div>
+
+    <div class="dor-card fade-up">
+      <span class="dor-icon">🎯</span>
+      <div>
+        <h4>Nunca sobra nada para investir</h4>
+        <p>Sonha em guardar dinheiro, mas no final do mês a conta está no zero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUÇÃO ============ -->
+<section class="section-solucao">
+  <div class="container" style="max-width:680px; position:relative;">
+    <h2 class="fade-up">O que você vai receber</h2>
+    <p class="lead-text fade-up">Uma análise completa e personalizada dos seus últimos 90 dias financeiros:</p>
+
+    <div class="row g-3">
+      <div class="col-6 fade-up">
+        <div class="entrega-card">
+          <div class="num">01</div>
+          <h4>Mapeamento de gastos</h4>
+          <p>Vemos para onde cada real foi nos últimos 3 meses</p>
+        </div>
+      </div>
+      <div class="col-6 fade-up">
+        <div class="entrega-card">
+          <div class="num">02</div>
+          <h4>Pontos de vazamento</h4>
+          <p>Identificamos onde seu dinheiro está escorregando</p>
+        </div>
+      </div>
+      <div class="col-6 fade-up">
+        <div class="entrega-card">
+          <div class="num">03</div>
+          <h4>Plano de economia</h4>
+          <p>Estratégias reais e práticas para cortar gastos</p>
+        </div>
+      </div>
+      <div class="col-6 fade-up">
+        <div class="entrega-card">
+          <div class="num">04</div>
+          <h4>Meta de reserva</h4>
+          <p>Uma meta realista para você começar a guardar já</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="section-dep">
+  <div class="container" style="max-width:640px;">
+    <h2 class="fade-up">Quem já fez, aprovou</h2>
+
+    <div class="dep-card fade-up">
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">
+        "Em 30 minutos de análise, descobri que gastava R$ 480 por mês em assinaturas que nem usava. Cancelei e esse dinheiro já virou minha reserva de emergência."
+      </p>
+      <div class="dep-author">
+        <div class="dep-avatar">MP</div>
+        <div>
+          <strong>Marina P.</strong>
+          <span>Professora, São Paulo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dep-card fade-up">
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">
+        "Achei que eram só detalhes, mas a análise mostrou que eu estava pagando juros desnecessários todo mês. Organizamos tudo e eu economizei mais de R$ 800 no primeiro mês."
+      </p>
+      <div class="dep-author">
+        <div class="dep-avatar">RC</div>
+        <div>
+          <strong>Rafael C.</strong>
+          <span>Autônomo, Curitiba</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dep-card fade-up">
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">
+        "Eu estava endividada e sem esperança. A análise foi o começo de uma virada real. Em 4 meses quitei todas as dívidas pequenas. Recomendo demais!"
+      </p>
+      <div class="dep-author">
+        <div class="dep-avatar">FO</div>
+        <div>
+          <strong>Fernanda O.</strong>
+          <span>Empreendedora, BH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="section-cta-final">
+  <div class="container" style="max-width:600px; position:relative;">
+    <h2 class="fade-up">
+      Chega de ver o dinheiro sumir.<br/>Descubra onde ele está indo.
+    </h2>
+    <p class="fade-up">
+      Análise personalizada dos seus últimos 90 dias.<br/>
+      Vagas limitadas — garanta a sua agora.
+    </p>
+
+    <!-- CONTADOR REGRESSIVO -->
+    <div class="countdown fade-up" id="countdown">
+      <div class="countdown-block">
+        <span class="num" id="cd-h">00</span>
+        <span class="label">Horas</span>
+      </div>
+      <div class="countdown-block">
+        <span class="num" id="cd-m">00</span>
+        <span class="label">Minutos</span>
+      </div>
+      <div class="countdown-block">
+        <span class="num" id="cd-s">00</span>
+        <span class="label">Segundos</span>
+      </div>
+    </div>
+
+    <a href="https://hotmart.com/SEU-LINK-AQUI" target="_blank" rel="noopener"
+       class="btn-cta pulse" id="btn-final">
+      <span>
+        Clique e Garanta sua Análise
+        <span class="vagas-tag">(Vagas Limitadas)</span>
+      </span>
+      <span class="arrow-circle">→</span>
+    </a>
+
+    <p style="margin-top:20px; font-size:0.82rem; opacity:0.75; position:relative;">
+      🔒 100% seguro · Pagamento processado pelo Hotmart
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p>© 2025 <strong>Âncora Consultoria Financeira</strong> · Todos os direitos reservados</p>
+  <p style="margin-top:6px;">Desenvolvido para transformar finanças pessoais</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── COUNTDOWN (24h a partir do carregamento) ──
+  const HOTMART_URL = 'https://go.hotmart.com/T105570969Y?dp=1';
+
+  (function() {
+    const KEY = 'ancora_countdown_end';
+    let endTime = localStorage.getItem(KEY);
+    if (!endTime) {
+      endTime = Date.now() + 24 * 60 * 60 * 1000; // 24h
+      localStorage.setItem(KEY, endTime);
+    }
+    endTime = parseInt(endTime);
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = endTime - Date.now();
+      if (diff <= 0) {
+        document.getElementById('cd-h').textContent = '00';
+        document.getElementById('cd-m').textContent = '00';
+        document.getElementById('cd-s').textContent = '00';
+        return;
+      }
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-h').textContent = pad(h);
+      document.getElementById('cd-m').textContent = pad(m);
+      document.getElementById('cd-s').textContent = pad(s);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => {
+    if (!el.classList.contains('visible')) observer.observe(el);
+  });
+
+  // ── UTM passthrough para Hotmart ──
+  function buildHotmartUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const base = HOTMART_URL;
+    const utms = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    const q = new URLSearchParams();
+    utms.forEach(k => { if (params.get(k)) q.set(k, params.get(k)); });
+    return q.toString() ? base + '?' + q.toString() : base;
+  }
+
+  document.querySelectorAll('a[href*="hotmart.com"]').forEach(a => {
+    a.href = buildHotmartUrl();
+  });
+</script>
+</body>
+</html>

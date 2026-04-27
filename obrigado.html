@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compra Confirmada | Âncora Consultoria Financeira</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --laranja: #F25C05;
+      --laranja-escuro: #C44A03;
+      --verde: #1A5C2A;
+      --verde-claro: #2E8B4A;
+      --amarelo: #F0A500;
+      --branco: #FFFFFF;
+      --cinza-claro: #F7F7F7;
+      --cinza-medio: #E8E8E8;
+      --texto: #1A1A1A;
+      --texto-suave: #555;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cinza-claro);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER CONFIRMAÇÃO ── */
+    .header-confirm {
+      background: var(--verde);
+      position: relative;
+      overflow: hidden;
+      padding: 52px 24px 80px;
+      text-align: center;
+    }
+
+    .header-confirm::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92' viewBox='0 0 80 92'%3E%3Cpolygon points='40,2 78,22 78,70 40,90 2,70 2,22' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 80px 92px;
+      pointer-events: none;
+    }
+
+    .check-anim {
+      width: 90px; height: 90px;
+      background: var(--amarelo);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 2.8rem;
+      animation: pop 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      position: relative;
+      box-shadow: 0 0 0 0 rgba(240,165,0,0.5);
+      animation: pop 0.5s ease, ring 2.5s 0.6s infinite;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes ring {
+      0%   { box-shadow: 0 0 0 0 rgba(240,165,0,0.5); }
+      70%  { box-shadow: 0 0 0 20px rgba(240,165,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(240,165,0,0); }
+    }
+
+    .header-confirm h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 9vw, 3.8rem);
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .header-confirm p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      font-weight: 700;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* Wave divider */
+    .wave {
+      display: block;
+      width: 100%;
+      margin-bottom: -2px;
+    }
+
+    /* ── CARD PRÓXIMOS PASSOS ── */
+    .card-proximos {
+      background: #fff;
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+
+    .card-proximos h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--laranja-escuro);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--cinza-medio);
+    }
+
+    .step-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-item:first-of-type { padding-top: 0; }
+
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--laranja);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--texto);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--texto-suave);
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    /* ── CARD DOCUMENTOS ── */
+    .card-docs {
+      background: #fff;
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+      border-top: 6px solid var(--laranja);
+    }
+
+    .card-docs h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--laranja-escuro);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-docs .subtitulo-docs {
+      font-size: 0.92rem;
+      color: var(--texto-suave);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--cinza-claro);
+      margin-bottom: 10px;
+      border-left: 4px solid var(--verde-claro);
+      transition: background 0.2s;
+    }
+
+    .doc-item:hover { background: #edf7f0; }
+
+    .doc-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .doc-item strong {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--texto);
+      display: block;
+    }
+
+    .doc-item span {
+      font-size: 0.8rem;
+      color: var(--texto-suave);
+      font-weight: 600;
+    }
+
+    /* Checkbox interativo */
+    .doc-check {
+      margin-left: auto;
+      width: 26px; height: 26px;
+      border: 2px solid var(--cinza-medio);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      color: transparent;
+    }
+
+    .doc-check.checked {
+      background: var(--verde-claro);
+      border-color: var(--verde-claro);
+      color: #fff;
+    }
+
+    /* Progresso docs */
+    .progress-docs {
+      background: var(--cinza-medio);
+      border-radius: 20px;
+      height: 10px;
+      margin: 20px 0 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--verde-claro), var(--amarelo));
+      border-radius: 20px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
+    .progress-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--verde);
+      text-align: right;
+    }
+
+    /* ── CARD AVISO IMPORTANTE ── */
+    .card-aviso {
+      background: #fff8f0;
+      border-radius: 24px;
+      padding: 30px 28px;
+      border: 2px solid #ffd4b0;
+      margin-bottom: 24px;
+    }
+
+    .card-aviso h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--laranja-escuro);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .aviso-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      background: #fff;
+      border-radius: 12px;
+      border-left: 4px solid var(--laranja);
+    }
+
+    .aviso-item:last-child { margin-bottom: 0; }
+
+    .aviso-item .aviso-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .aviso-item p {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #444;
+      line-height: 1.55;
+    }
+
+    .aviso-item p strong {
+      color: var(--laranja-escuro);
+    }
+
+    /* ── CARD PRAZO ── */
+    .card-prazo {
+      background: var(--verde);
+      border-radius: 24px;
+      padding: 30px 28px;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-prazo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92' viewBox='0 0 80 92'%3E%3Cpolygon points='40,2 78,22 78,70 40,90 2,70 2,22' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 80px 92px;
+      pointer-events: none;
+    }
+
+    .prazo-numero {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: var(--amarelo);
+      line-height: 1;
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .card-prazo h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .card-prazo p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 700;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .prazo-tag {
+      display: inline-block;
+      background: var(--amarelo);
+      color: var(--verde);
+      font-weight: 900;
+      font-size: 0.78rem;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-top: 14px;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      color: #999;
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    footer strong { color: var(--laranja); }
+    footer .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    /* ── ANIMAÇÕES ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay escalonado */
+    .fade-up:nth-child(1) { transition-delay: 0.05s; }
+    .fade-up:nth-child(2) { transition-delay: 0.12s; }
+    .fade-up:nth-child(3) { transition-delay: 0.19s; }
+    .fade-up:nth-child(4) { transition-delay: 0.26s; }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      animation: confetti-fall linear forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes confetti-fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header-confirm">
+  <div class="check-anim">✓</div>
+  <h1>Compra Confirmada!<br/>Bem-vindo à Âncora.</h1>
+  <p>
+    Sua jornada para organizar as finanças começa agora.<br/>
+    Fique de olho no seu e-mail — as instruções para a reunião chegarão em breve.
+  </p>
+</header>
+
+<!-- Wave SVG -->
+<svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:var(--cinza-claro);">
+  <path d="M0,0 C360,60 1080,60 1440,0 L1440,0 L0,0 Z" fill="#1A5C2A"/>
+</svg>
+
+<!-- ============ CONTEÚDO ============ -->
+<main class="container py-4" style="max-width:620px;">
+
+  <!-- PRÓXIMOS PASSOS -->
+  <div class="card-proximos fade-up">
+    <h2>📋 Próximos Passos</h2>
+
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Verifique seu e-mail</h4>
+        <p>Enviamos uma confirmação para o e-mail cadastrado no Hotmart. Verifique também a caixa de spam caso não encontre.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Aguarde o contato da Âncora</h4>
+        <p>Nossa equipe entrará em contato em até <strong>24 horas úteis</strong> com o link e o horário da sua reunião online. Fique atento ao e-mail e ao WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Reúna os documentos (veja abaixo!)</h4>
+        <p>Enquanto aguarda, comece agora mesmo a reunir os documentos necessários para que aproveitemos 100% do tempo da reunião.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Participe da reunião preparado</h4>
+        <p>Na data agendada, traga todos os documentos em mãos ou digitalizados. Quanto mais completo, mais precisa e valiosa será a sua análise.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTOS NECESSÁRIOS -->
+  <div class="card-docs fade-up">
+    <h2>📁 Documentos Necessários</h2>
+    <p class="subtitulo-docs">Marque os que você já tem reunidos e prepare os demais antes da reunião:</p>
+
+    <!-- Progresso -->
+    <div class="progress-docs">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 de 7 documentos reunidos</div>
+
+    <div style="margin-top:16px;">
+
+      <div class="doc-item">
+        <span class="doc-icon">🏦</span>
+        <div>
+          <strong>Extrato bancário completo</strong>
+          <span>Últimos 3 meses de todas as contas (corrente, poupança, digital)</span>
+        </div>
+        <div class="doc-check" data-index="0" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">💳</span>
+        <div>
+          <strong>Faturas de cartão de crédito</strong>
+          <span>Todas as faturas dos últimos 3 meses, de todos os cartões</span>
+        </div>
+        <div class="doc-check" data-index="1" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div>
+          <strong>Comprovantes de renda</strong>
+          <span>Holerite, pró-labore, recibos de freelance ou qualquer entrada regular</span>
+        </div>
+        <div class="doc-check" data-index="2" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">🏠</span>
+        <div>
+          <strong>Contas fixas mensais</strong>
+          <span>Aluguel, condomínio, financiamento imobiliário, plano de saúde</span>
+        </div>
+        <div class="doc-check" data-index="3" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">⚡</span>
+        <div>
+          <strong>Contas de consumo</strong>
+          <span>Luz, água, internet, telefone — dos últimos 3 meses</span>
+        </div>
+        <div class="doc-check" data-index="4" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">📊</span>
+        <div>
+          <strong>Dívidas e financiamentos ativos</strong>
+          <span>Contratos, boletos em aberto, carnês, empréstimos pessoais ou consignados</span>
+        </div>
+        <div class="doc-check" data-index="5" onclick="toggleCheck(this)"></div>
+      </div>
+
+      <div class="doc-item">
+        <span class="doc-icon">📝</span>
+        <div>
+          <strong>Outros registros de gastos</strong>
+          <span>Anotações pessoais, planilhas, aplicativos financeiros — qualquer controle que você já tenha</span>
+        </div>
+        <div class="doc-check" data-index="6" onclick="toggleCheck(this)"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AVISO IMPORTANTE -->
+  <div class="card-aviso fade-up">
+    <h2>⚠️ Leia com Atenção</h2>
+
+    <div class="aviso-item">
+      <span class="aviso-icon">📅</span>
+      <p>
+        <strong>O prazo de 7 dias úteis para entrega da sua análise começa a contar somente após o envio completo de todos os documentos solicitados.</strong> Envios parciais ou incompletos não iniciam o prazo.
+      </p>
+    </div>
+
+    <div class="aviso-item">
+      <span class="aviso-icon">🚫</span>
+      <p>
+        A <strong>Âncora Consultoria Financeira não se responsabiliza por atrasos</strong> causados pela demora ou pelo não envio dos documentos por parte do cliente. O cronograma depende diretamente da sua agilidade na entrega.
+      </p>
+    </div>
+
+    <div class="aviso-item">
+      <span class="aviso-icon">📤</span>
+      <p>
+        Documentos enviados de forma <strong>incompleta, ilegível ou fora do período solicitado</strong> (últimos 3 meses) deverão ser reapresentados, o que pode reiniciar a contagem do prazo.
+      </p>
+    </div>
+
+    <div class="aviso-item">
+      <span class="aviso-icon">✉️</span>
+      <p>
+        Todos os documentos devem ser entregues <strong>durante a reunião online</strong> ou conforme orientação específica da nossa equipe. Fique atento às instruções enviadas por e-mail.
+      </p>
+    </div>
+  </div>
+
+  <!-- PRAZO -->
+  <div class="card-prazo fade-up">
+    <div class="prazo-numero">7</div>
+    <h3>Dias Úteis para sua Análise</h3>
+    <p>
+      Após o recebimento de <strong style="color:#fff;">toda</strong> a documentação solicitada,<br/>
+      nossa equipe entregará sua análise financeira completa em até 7 dias úteis.
+    </p>
+    <div class="prazo-tag">⏱ O prazo só começa após o envio completo dos docs</div>
+  </div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-logo">ÂNCORA</div>
+  <p>© 2025 <strong>Âncora Consultoria Financeira</strong> · Todos os direitos reservados</p>
+  <p style="margin-top:6px;">Dúvidas? Entre em contato pelo e-mail ou WhatsApp informados no e-mail de confirmação.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── CONFETTI ──
+  const colors = ['#F25C05','#F0A500','#1A5C2A','#2E8B4A','#ffffff','#ffcc00'];
+  function launchConfetti() {
+    for (let i = 0; i < 60; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width = (Math.random() * 8 + 6) + 'px';
+        el.style.height = (Math.random() * 8 + 6) + 'px';
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        const dur = Math.random() * 2 + 1.5;
+        el.style.animationDuration = dur + 's';
+        el.style.opacity = Math.random() * 0.6 + 0.4;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 100);
+      }, Math.random() * 1200);
+    }
+  }
+  launchConfetti();
+
+  // ── CHECKBOXES DOCS ──
+  const TOTAL = 7;
+  const KEY = 'ancora_docs_checked';
+  let checked = JSON.parse(localStorage.getItem(KEY) || '[]');
+
+  function updateProgress() {
+    const pct = Math.round((checked.length / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent =
+      checked.length + ' de ' + TOTAL + ' documentos reunidos' +
+      (checked.length === TOTAL ? ' ✓ Tudo pronto!' : '');
+  }
+
+  function toggleCheck(el) {
+    const idx = el.dataset.index;
+    if (el.classList.contains('checked')) {
+      el.classList.remove('checked');
+      el.textContent = '';
+      checked = checked.filter(i => i !== idx);
+    } else {
+      el.classList.add('checked');
+      el.textContent = '✓';
+      if (!checked.includes(idx)) checked.push(idx);
+    }
+    localStorage.setItem(KEY, JSON.stringify(checked));
+    updateProgress();
+  }
+
+  // Restaurar estado salvo
+  document.querySelectorAll('.doc-check').forEach(el => {
+    if (checked.includes(el.dataset.index)) {
+      el.classList.add('checked');
+      el.textContent = '✓';
+    }
+  });
+  updateProgress();
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
